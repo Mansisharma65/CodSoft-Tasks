@@ -1,0 +1,54 @@
+import java.util.Scanner;
+
+class Calculator {
+    double s1, s2, s3, s4, s5;
+    double total_marks, avg_marks, perchantage;
+    char grade;
+    Scanner read = new Scanner(System.in);
+
+    Calculator() {
+        System.out.println("Enter the marks of 5 subjects: ");
+        s1 = read.nextInt();
+        s2 = read.nextInt();
+        s3 = read.nextInt();
+        s4 = read.nextInt();
+        s5 = read.nextInt();
+    }
+
+    public void calculate_total() {
+        this.total_marks = (s1 + s2 + s3 + s4 + s5);
+        this.avg_marks = (total_marks) / 5.0;
+        this.perchantage = total_marks / 500 * 100;
+        System.out.println("Total Marks is: " + total_marks);
+        System.out.println("Average marks is: " + avg_marks);
+        System.out.printf("perchantange is : %.2f", perchantage);
+    }
+
+    public void assign_grade() {
+        if (perchantage >= 90) {
+            System.out.println("A1");
+        } else if (perchantage <= 90 && perchantage >= 80) {
+            System.out.println("A2");
+        } else if (perchantage <= 80 && perchantage >= 65) {
+            System.out.println("B1");
+        } else if (perchantage <= 65 && perchantage >= 55) {
+            System.out.println("B2");
+        } else if (perchantage <= 55 && perchantage >= 45) {
+            System.out.println("C1");
+        } else if (perchantage <= 45 && perchantage >= 33) {
+            System.out.println("C2");
+        } else {
+            System.out.println("F");
+        }
+    }
+}
+
+public class StudentGradeCalculator {
+    public static void main(String[] args) {
+        Calculator c = new Calculator();
+        c.calculate_total();
+        System.out.println();
+        System.out.print("Grade is: ");
+        c.assign_grade();
+    }
+}
