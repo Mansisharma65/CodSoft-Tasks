@@ -1,0 +1,95 @@
+import java.io.IOException;
+import java.util.Scanner;
+
+class BankAccount {
+    private double balance;
+
+    public BankAccount(double initial_amount) {
+        this.balance = initial_amount;
+    }
+
+    public double get_balance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposit successfully! New balane is : " + balance);
+        } else {
+            System.out.println("Invalid amount for deposit.");
+        }
+    }
+
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= this.balance) {
+            balance -= amount;
+            System.out.println("Withdraw successfully! New balance is: " + balance);
+        } else {
+            System.out.println("Insufficient fund or invalid amount for balance.");
+        }
+    }
+}
+
+class ATM {
+    private BankAccount account;
+    private Scanner scanner;
+
+    public ATM(BankAccount account) {
+        this.account = account;
+        this.scanner = new Scanner(System.in);
+    }
+
+    public void showMenu() {
+        System.out.println("1. Check Balance " + "\n" + "2. Deposit " + "\n" + "3. Withdraw" + "\n" + "4. Exit");
+    }
+
+    public void run() {
+        int choice;
+        do {
+            showMenu();
+            System.out.println("Enter your choice: ");
+            choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    CheckBalance();
+                    break;
+                case 2:
+                    System.out.println("Enter ammount to deposit: ");
+                    double cash = scanner.nextDouble();
+                    account.deposit(cash);
+                    break;
+                case 3:
+                    System.out.println("Enter ammount to withdraw: ");
+                    double amount = scanner.nextDouble();
+                    account.withdraw(amount);
+                    break;
+                case 4:
+                    Exit();
+                    break;
+                default:
+                    System.out.println("Invalid Operation.");
+            }
+        } while (choice != 4);
+        scanner.close();
+    }
+
+    private void CheckBalance() {
+        System.out.println("Your current balance is: " + account.get_balance());
+    }
+
+    private void Exit() {
+        return;
+    }
+
+}
+
+public class ATM_Interface {
+    public static void main(String[] args) throws IOException {
+        System.out.println("----------Welcome to SBI ATM---------");
+        BankAccount ba = new BankAccount(1000.0); // initial_amount
+        ATM atm = new ATM(ba);
+        atm.run();
+        System.out.println("--------Thank You For Visiting the ATM---------");
+    }
+}
